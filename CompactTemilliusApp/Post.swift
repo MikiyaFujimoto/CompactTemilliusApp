@@ -11,18 +11,18 @@ struct PostList: Codable {
     var list: [Post]
 }
 struct Post: Codable {
-    let id: Int
-    let avatar: String
-    let name: String
-    let date: String
+    let id      : Int
+    let name    : String
+    let date    : String
+    let avatar  : String
 //    var isFollowed: Bool
     
-    let text: String
-    let images: [String]
+    let text    : String
+    let images  : [String]
     
-    var commentCount: Int
-    var likeCount: Int
-    var isLiked: Bool
+    var isLiked      : Bool
+    var likeCount    : Int
+    var commentCount : Int
 }
 
 // 伸びる機能

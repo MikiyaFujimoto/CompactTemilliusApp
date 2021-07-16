@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PostCellToolsButton: View {
-    let image: String
-    let text: String
-    let color: Color
+    let image : String
+    let text  : String
+    let color : Color
     let action: () -> Void// closure
     
     var body: some View {
@@ -26,6 +26,7 @@ struct PostCellToolsButton: View {
             }
         }
         .foregroundColor(color)
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
 

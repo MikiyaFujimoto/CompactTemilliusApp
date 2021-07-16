@@ -13,6 +13,7 @@ struct PostCell: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 5) {
+                // Upload avatar
                 post.avatarImage
                     .resizable()//大きさ調整できる
                     .scaledToFill()//写真をfillにする
@@ -20,10 +21,13 @@ struct PostCell: View {
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/, style: /*@START_MENU_TOKEN@*/FillStyle()/*@END_MENU_TOKEN@*/)//形を変化する
                 
                 VStack(alignment: .leading, spacing: 5) {
+                    // Upload name
                     Text(post.name)
-                            .font(Font.system(size: 16))//字体
-                            .foregroundColor(Color(red: 200 / 255, green: 200 / 255, blue: 200 / 255))
-                            .lineLimit(1)
+                        .font(Font.system(size: 16))//字体
+                        .foregroundColor(Color(red: 200 / 255, green: 200 / 255, blue: 200 / 255))
+                        .lineLimit(1)
+                    
+                    // Upload date
                     Text(post.date)
                         .font(.system(size: 11))
                         .foregroundColor(.gray)
@@ -34,34 +38,30 @@ struct PostCell: View {
                 
                 
                 //followのbutton
-    //            Button(action: {
-    //                print("Click follow button")
-    //            }, label: {
-    //                Text("Follow")
-    //                    .font(.system(size: 14))
-    //                    .foregroundColor(.orange)
-    //                    .frame(width: 50, height: 26)
+                //            Button(action: {
+                //                print("Click follow button")
+                //            }, label: {
+                //                Text("Follow")
+                //                    .font(.system(size: 14))
+                //                    .foregroundColor(.orange)
+                //                    .frame(width: 50, height: 26)
                 //view on view
-    //                    .overlay(
-    //                    RoundedRectangle(cornerRadius: 13)
+                //                    .overlay(
+                //                    RoundedRectangle(cornerRadius: 13)
                 //周りだけ描く
-    //                        .stroke(Color.orange, lineWidth: 1))
-    //            })
+                //                        .stroke(Color.orange, lineWidth: 1))
+                //            })
                 
-                }
+            }
             
+            // Upload text
             Text(post.text)
                 .font(.system(size: 17))
             
+            // Upload photos
             if !post.images.isEmpty {
-                //0番目の写真を名前つけてとる、
-                loadImage(name: post.images[0])
-                    .resizable()
-                    .scaledToFill()
-                    //width:height = 4:3
-                    .frame(width: UIScreen.main.bounds.width - 30, height: (UIScreen.main.bounds.width - 30) * 0.75)
-                    .clipped()//余計な部分を消す
-                }
+                PostImageCell(width: UIScreen.main.bounds.width - 30, images: post.images)
+            }
             
             //割り線
             Divider()
@@ -74,7 +74,7 @@ struct PostCell: View {
                 PostCellToolsButton(image: "message",
                                     text: post.commentCountText,
                                     color: .black)
-                    {
+                {
                     print("Click comment button")
                 }
                 
@@ -83,16 +83,22 @@ struct PostCell: View {
                 PostCellToolsButton(image: "heart",
                                     text: post.likeCountText,
                                     color: .black)
-                    {
+                {
                     print("Click like button")
                 }
                 
                 Spacer()
-            
+                
             }
             
+            // the spacer btween photos
+            Rectangle()
+                .padding(.horizontal, -15)
+                .frame(height: 10)
+                .foregroundColor(Color(red: 200 / 255, green: 200 / 255, blue: 200 / 255))
         }
         .padding(.horizontal, 15)
+        .padding(.top, 15)
     }
 }
 
