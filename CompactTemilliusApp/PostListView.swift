@@ -23,9 +23,21 @@ struct PostListView: View {
         //                    .listRowInsets(EdgeInsets())
         //            }
         //    }
-        List(postList.list, id: \.id) { post in
-            PostCell(post: post)
-                .listRowInsets(EdgeInsets())
+        List {
+            ForEach(postList.list, id: \.id) { post in
+                //垂直方向の積み重ね
+                ZStack {
+                    PostCell(post: post)
+                    // click -> jump to the page
+                    NavigationLink(
+                        destination: PostDetailView(post: post)) {
+                        EmptyView()
+                    }
+                    // Hide the ">" (text)
+                    .hidden()
+                }
+                    .listRowInsets(EdgeInsets())
+            }
         }
     }
 }
@@ -35,6 +47,8 @@ struct PostListView_Previews: PreviewProvider {
         NavigationView {
             PostListView()
                 .navigationTitle("Temillius")
+                // Hide the title
+                .navigationBarHidden(true)
         }
     }
 }
